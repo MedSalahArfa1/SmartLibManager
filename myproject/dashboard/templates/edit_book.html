@@ -1,0 +1,206 @@
+<!--
+=========================================================
+* Material Dashboard 2 - v3.1.0
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/material-dashboard
+* Copyright 2023 Creative Tim (https://www.creative-tim.com)
+* Licensed under MIT (https://www.creative-tim.com/license)
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+-->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>
+    Edit Book
+  </title>
+  <!-- Fonts and icons -->
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+  <!-- Nucleo Icons -->
+  <link href="{% static 'css/nucleo-icons.css' %}" rel="stylesheet" />
+  <link href="{% static 'css/nucleo-svg.css' %}" rel="stylesheet" />
+  <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <!-- CSS Files -->
+  <link id="pagestyle" href="{% static 'css/material-dashboard.css' %}" rel="stylesheet" />
+</head>
+<body class="g-sidenav-show bg-gray-200">
+  {% include 'aside.html' %}
+  <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
+    <!-- Navbar -->
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
+      <div class="container-fluid py-1 px-3">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Books</li>
+          </ol>
+          <h6 class="font-weight-bolder mb-0">{{ logged_in_user.first_name }} {{ logged_in_user.last_name }} - {{ logged_in_user.library.name }}</h6>
+        </nav>
+        <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+          <ul class="navbar-nav justify-content-end">
+            <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+              <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
+                <div class="sidenav-toggler-inner">
+                  <i class="sidenav-toggler-line"></i>
+                  <i class="sidenav-toggler-line"></i>
+                  <i class="sidenav-toggler-line"></i>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- End Navbar -->
+        <div class="container-fluid py-4"  style="max-width: 70%;">
+            <div class="row">
+            <div class="col-12">
+                <div class="card my-4">
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                    <div class=" shadow-dark border-radius-lg pt-4 pb-3 text-center" style="background-color: #B95E04;">
+                    <h3 class="text-white text-capitalize ps-3">EDIT BOOK</h3>
+                    </div>
+                </div>
+                <div class="card-body px-0 pb-2">
+                    <div class="card-body text-start">
+                      <form method="post" action="{% url 'edit_book' book.pk %}">
+                        {% csrf_token %}
+                        
+                        <!-- Central ID field -->
+                        <div class="form-group">
+                            <label for="central_id">Central ID</label>
+                            <input type="text" id="central_id" name="central_id" maxlength="10" value="{{ form.central_id.value }}" required>
+                        </div>
+                        {% if form.central_id.errors %}
+                        <div class="alert alert-danger text-light" role="alert">
+                            {{ form.central_id.errors }}
+                        </div>
+                        {% endif %}
+
+                        <!-- Local ID field -->
+                        <div class="form-group">
+                            <label for="local_id">Local ID</label>
+                            <input type="text" id="local_id" name="local_id" maxlength="10" value="{{ form.local_id.value }}" required>
+                        </div>
+                        {% if form.local_id.errors %}
+                        <div class="alert alert-danger text-light" role="alert">
+                            {{ form.local_id.errors }}
+                        </div>
+                        {% endif %}
+                    
+                        <!-- Title field -->
+                        <div class="form-group">
+                            <label for="title">Title</label>
+                            <input type="text" id="title" name="title" maxlength="100" value="{{ form.title.value }}" required>
+                        </div>
+                        {% if form.title.errors %}
+                        <div class="alert alert-danger text-light" role="alert">
+                            {{ form.title.errors }}
+                        </div>
+                        {% endif %}
+                    
+                        <!-- Author's Name field -->
+                        <div class="form-group">
+                          <label for="id_author_name">Author's Name</label>
+                          <input type="text" class="form-control" id="id_author_name" name="author_name" value="{{ form.author_name.value }}">
+                        </div>
+                        {% if form.authors.errors %}
+                        <div class="alert alert-danger text-light" role="alert">
+                            {{ form.authors.errors }}
+                        </div>
+                        {% endif %}
+                    
+                        <!-- Categories field -->
+                        <div class="form-group" style="margin: auto;">
+                          <label>Categories</label>
+                          <div class="row">
+                              {% for category in categories %}
+                              <div class="col">
+                                  <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="category_{{ category.id }}" name="categories" value="{{ category.id }}" 
+                                    {% if category.id in form.categories.value %}checked{% endif %} style="width: 20px; height: 20px;">
+                                    <label class="form-check-label" for="category_{{ category.id }}">{{ category.index }} - {{ category.name }}</label>
+                                  </div>
+                              </div>
+                              {% if forloop.counter|divisibleby:4 and not forloop.last %}
+                          </div>
+                          <div class="row">
+                              {% endif %}
+                              {% endfor %}
+                          </div>
+                      </div>
+                      {% if form.categories.errors %}
+                      <div class="alert alert-danger text-light" role="alert">
+                          {{ form.categories.errors }}
+                      </div>
+                      {% endif %}
+                        
+
+                        
+                    
+                        <!-- Quantity available field -->
+                        <div class="form-group">
+                            <label for="quantity_available">Quantity available</label>
+                            <input type="number" id="quantity_available" name="quantity_available" min="0" value="{{ form.quantity_available.value }}" required>
+                        </div>
+                        {% if form.quantity_available.errors %}
+                        <div class="alert alert-danger text-light" role="alert">
+                            {{ form.quantity_available.errors }}
+                        </div>
+                        {% endif %}
+
+                        <!-- Notes field -->
+                        <div class="form-group">
+                          <label for="notes">Notes</label>
+                          <textarea id="notes" name="notes" placeholder="You can keep it empty">{{ form.notes.value }}</textarea>
+                        </div>
+                        {% if form.notes.errors %}
+                        <div class="alert alert-danger text-light" role="alert">
+                            {{ form.notes.errors }}
+                        </div>
+                        {% endif %}
+                    
+                        <!-- Submit button -->
+                        <div class="d-flex align-items-center justify-content-center">
+                            <button type="submit" class="btn btn-lg w-100 mt-4 mb-0 text-white" style="background-color: #B95E04;margin-right: 20px;">Save</button>
+                            <a href="{% url 'books_view' %}" class="btn btn-lg w-100 mt-4 mb-0 text-white" style="background-color: gray;">Cancel</a>
+                        </div>
+                      </form>
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </main>
+
+    <!--   Core JS Files   -->
+    <script src="{% static 'js/core/popper.min.js' %}"></script>
+    <script src="{% static 'js/core/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/plugins/perfect-scrollbar.min.js' %}"></script>
+    <script src="{% static 'js/plugins/smooth-scrollbar.min.js' %}"></script>
+    <script src="{% static 'js/plugins/chartjs.min.js' %}"></script>
+    <script>
+        var win = navigator.platform.indexOf('Win') > -1;
+        if (win && document.querySelector('#sidenav-scrollbar')) {
+        var options = {
+            damping: '0.5'
+        }
+        Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+        }
+    </script>
+    <!-- Github buttons -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+    <script src="{% static 'js/material-dashboard.min.js' %}"></script>
+</body>
+
+</html>

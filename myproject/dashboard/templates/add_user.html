@@ -1,0 +1,207 @@
+<!--
+=========================================================
+* Material Dashboard 2 - v3.1.0
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/material-dashboard
+* Copyright 2023 Creative Tim (https://www.creative-tim.com)
+* Licensed under MIT (https://www.creative-tim.com/license)
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+-->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>
+    Add User
+  </title>
+  <!--     Fonts and icons     -->
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+  <!-- Nucleo Icons -->
+  <link href="{% static 'css/nucleo-icons.css' %}" rel="stylesheet" />
+  <link href="{% static 'css/nucleo-svg.css' %}" rel="stylesheet" />
+  <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <!-- CSS Files -->
+  <link id="pagestyle" href="{% static 'css/material-dashboard.css' %}" rel="stylesheet" />
+</head>
+<body class="g-sidenav-show  bg-gray-200">
+    {% include 'aside.html' %}
+    <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
+      <!-- Navbar -->
+      <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
+        <div class="container-fluid py-1 px-3">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+              <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Users</li>
+            </ol>
+            <h6 class="font-weight-bolder mb-0">{{ logged_in_user.first_name }} {{ logged_in_user.last_name }} - {{ logged_in_user.library.name }}</h6>
+          </nav>
+          <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+            <ul class="navbar-nav justify-content-end">
+              <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+                <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
+                  <div class="sidenav-toggler-inner">
+                    <i class="sidenav-toggler-line"></i>
+                    <i class="sidenav-toggler-line"></i>
+                    <i class="sidenav-toggler-line"></i>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <!-- End Navbar -->
+        <div class="container-fluid py-4"  style="max-width: 70%;">
+            <div class="row">
+              <div class="col-12">
+                <div class="card my-4">
+                  <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                    <div class="shadow-dark border-radius-lg pt-4 pb-3 text-center" style="background-color: #B95E04;">
+                      <h3 class="text-white text-capitalize ps-3">ADD USER</h3>
+                    </div>
+                  </div>
+                  <div class="card-body px-0 pb-2">
+                    <div class="card-body text-start">
+                      <form method="post">
+                        {% csrf_token %}
+                        
+                        <!-- First Name -->
+                        <div class="form-group">
+                          <label for="id_first_name">First Name</label>
+                          {{ form.first_name }}
+                        </div>
+                        {% if form.first_name.errors %}
+                        <div class="alert alert-danger text-light" role="alert">
+                            {{ form.first_name.errors }}
+                        </div>
+                        {% endif %}
+                        
+                        <!-- Last Name -->
+                        <div class="form-group">
+                          <label for="id_last_name">Last Name</label>
+                          {{ form.last_name }}
+                        </div>
+                        {% if form.last_name.errors %}
+                        <div class="alert alert-danger text-light" role="alert">
+                            {{ form.last_name.errors }}
+                        </div>
+                        {% endif %}
+                    
+                        <!-- Birth Date -->
+                        <div class="form-group">
+                          <label for="id_birth_date">Birth Date</label>
+                          {{ form.birth_date }}
+                        </div>
+                        {% if form.birth_date.errors %}
+                        <div class="alert alert-danger text-light" role="alert">
+                            {{ form.birth_date.errors }}
+                        </div>
+                        {% endif %}
+                    
+                        <!-- CIN -->
+                        <div class="form-group">
+                          <label for="id_cin">CIN</label>
+                          {{ form.cin }}
+                        </div>
+                        {% if form.cin.errors %}
+                        <div class="alert alert-danger text-light" role="alert">
+                            {{ form.cin.errors }}
+                        </div>
+                        {% endif %}
+                    
+                        <!-- Address -->
+                        <div class="form-group">
+                          <label for="id_address">Address</label>
+                          {{ form.address }}
+                        </div>
+                        {% if form.address.errors %}
+                        <div class="alert alert-danger text-light" role="alert">
+                            {{ form.address.errors }}
+                        </div>
+                        {% endif %}
+                    
+                        <!-- Phone -->
+                        <div class="form-group">
+                          <label for="id_phone">Phone</label>
+                          {{ form.phone }}
+                        </div>
+                        {% if form.phone.errors %}
+                        <div class="alert alert-danger text-light" role="alert">
+                            {{ form.phone.errors }}
+                        </div>
+                        {% endif %}
+
+                        <!-- Email -->
+                        <div class="form-group">
+                          <label for="id_email">Email</label>
+                          {{ form.email }}
+                        </div>
+                        {% if form.email.errors %}
+                        <div class="alert alert-danger text-light" role="alert">
+                            {{ form.email.errors }}
+                        </div>
+                        {% endif %}
+                    
+                        <!-- Membership ID -->
+                        <div class="form-group">
+                          <label for="id_membership_id">Membership ID</label>
+                          {{ form.membership_id }}
+                        </div>
+                        {% if form.membership_id.errors %}
+                        <div class="alert alert-danger text-light" role="alert">
+                            {{ form.membership_id.errors }}
+                        </div>
+                        {% endif %}
+                    
+                        <!-- Membership Validity -->
+                        <div class="form-group">
+                          <label for="id_membership_validity">Membership Validity</label>
+                          {{ form.membership_validity }}
+                        </div>
+                        {% if form.membership_validity.errors %}
+                        <div class="alert alert-danger text-light" role="alert">
+                            {{ form.membership_validity.errors }}
+                        </div>
+                        {% endif %}
+                  
+                        <button type="submit" class="btn btn-lg btn-lg w-100 mt-4 mb-0 text-white" style="background-color: #B95E04;">Save</button>
+
+                      </form>
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </main>
+    <!--   Core JS Files   -->
+    <script src="{% static 'js/core/popper.min.js' %}"></script>
+    <script src="{% static 'js/core/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/plugins/perfect-scrollbar.min.js' %}"></script>
+    <script src="{% static 'js/plugins/smooth-scrollbar.min.js' %}"></script>
+    <script src="{% static 'js/plugins/chartjs.min.js' %}"></script>
+    <script>
+        var win = navigator.platform.indexOf('Win') > -1;
+        if (win && document.querySelector('#sidenav-scrollbar')) {
+        var options = {
+            damping: '0.5'
+        }
+        Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+        }
+    </script>
+    <!-- Github buttons -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+    <script src="{% static 'js/material-dashboard.min.js' %}"></script>
+</body>
+
+</html>

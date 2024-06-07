@@ -1,0 +1,174 @@
+<!--
+=========================================================
+* Material Dashboard 2 - v3.1.0
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/material-dashboard
+* Copyright 2023 Creative Tim (https://www.creative-tim.com)
+* Licensed under MIT (https://www.creative-tim.com/license)
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+-->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>
+    Sign Up
+  </title>
+  <!--     Fonts and icons     -->
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+  <!-- Nucleo Icons -->
+  <link href="{% static 'css/nucleo-icons.css' %}" rel="stylesheet" />
+  <link href="{% static 'css/nucleo-svg.css' %}" rel="stylesheet" />
+  <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <!-- CSS Files -->
+  <link id="pagestyle" href="{% static 'css/material-dashboard.css' %}" rel="stylesheet" />
+</head>
+<body class="bg-gray-200">
+  <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
+    <div class="page-header align-items-start min-vh-100" style="background-image: url({% static 'img/illustrations/login.jpg' %});">
+      <span class="mask bg-gradient-dark opacity-6"></span>
+      <div class="container my-auto">
+        <div class="row" style="margin-top: 50px;margin-bottom:30px ;">
+          <div class="col-lg-4 col-md-8 col-12 mx-auto">
+            <div class="card z-index-0 fadeIn3 fadeInBottom">
+              <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                <div class="border-radius-lg py-3 pe-1" style="background-color: #B95E04;">
+                  <h2 class="text-white font-weight-bolder text-center mt-2 mb-0">SmartLib Manager</h2>
+                  <h4 class="text-white font-weight-bolder text-center mt-2 mb-0">Sign Up</h4>
+                  <p class="text-light text-center mt-2 mb-0">(*) Required</p>
+                </div>
+              </div>
+              <div class="card-body">
+                <form role="form" method="post">
+                  {% csrf_token %}
+                  <div class="input-group input-group-outline my-3">
+                    <label for="first_name" class="form-label">First Name*</label>
+                    <input type="text" id="first_name" name="first_name" class="form-control" required>
+                  </div>
+                  {% if form.first_name.errors %}
+                  <div class="alert alert-danger text-light" role="alert">
+                      {{ form.first_name.errors }}
+                  </div>
+                  {% endif %}
+                  <div class="input-group input-group-outline my-3">
+                    <label for="last_name" class="form-label">Last Name*</label>
+                    <input type="text" id="last_name" name="last_name" class="form-control" required>
+                  </div>
+                  {% if form.last_name.errors %}
+                  <div class="alert alert-danger text-light" role="alert">
+                      {{ form.last_name.errors }}
+                  </div>
+                  {% endif %}
+                  <div class="input-group input-group-outline my-3" style="display: flex; align-items: center; justify-content: center;">
+                    <p class="font-weight-normal" style="margin: 0 10px 0 0;">Birth Date</p>
+                    <input type="date" id="birth_date" name="birth_date" class="form-control">
+                  </div>
+                  {% if form.birth_date.errors %}
+                  <div class="alert alert-danger text-light" role="alert">
+                      {{ form.birth_date.errors }}
+                  </div>
+                  {% endif %}                  
+                  <div class="input-group input-group-outline my-3">
+                    <label for="cin" class="form-label">CIN*</label>
+                    <input type="text" id="cin" name="cin" maxlength="8" class="form-control" required>
+                  </div>
+                  {% if form.cin.errors %}
+                  <div class="alert alert-danger text-light" role="alert">
+                      {{ form.cin.errors }}
+                  </div>
+                  {% endif %}
+                  <div class="input-group input-group-outline my-3">
+                    <label for="email" class="form-label">E-mail</label>
+                    <input type="email" id="email" name="email" class="form-control">
+                  </div>
+                  {% if form.email.errors %}
+                  <div class="alert alert-danger text-light" role="alert">
+                      {{ form.email.errors }}
+                  </div>
+                  {% endif %}
+                  <div class="input-group input-group-outline my-3">
+                    <label for="phone" class="form-label">Phone*</label>
+                    <input type="text" id="phone" name="phone" maxlength="20" class="form-control" required>
+                  </div>
+                  {% if form.phone.errors %}
+                  <div class="alert alert-danger text-light" role="alert">
+                      {{ form.phone.errors }}
+                  </div>
+                  {% endif %}
+                  <div class="mb-3 d-flex align-items-center justify-content-center">
+                    <select class="form-select form-select-lg mb-3 me-3" id="library" name="library" aria-label=".form-select-lg example" required style="margin-right: 10px;">
+                      <option selected>-- Select Library* --</option>
+                        {% for library in libraries %}
+                          <option value="{{ library.id }}">{{ library.zipCode }} - {{ library.city }} - {{ library.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <a href="{% url 'add_library' %}" class="btn font-weight-bold text-light text-center" style="background-color: #B95E04;border-radius: 8px ;">Add New Library</a>
+                  </div>
+                  {% if form.library.errors %}
+                  <div class="alert alert-danger text-light" role="alert">
+                      {{ form.library.errors }}
+                  </div>
+                  {% endif %}
+                  <div class="input-group input-group-outline my-3">
+                    <label for="password1" class="form-label">Password*</label>
+                    <input type="password" id="password1" name="password1" class="form-control" required>
+                  </div>
+                  <div class="input-group input-group-outline my-3">
+                    <label for="password2" class="form-label">Re-enter Password*</label>
+                    <input type="password" id="password2" name="password2" class="form-control" required>
+                  </div>
+                  {% if form.password.errors %}
+                  <div class="alert alert-danger text-light" role="alert">
+                      {{ form.password.errors }}
+                  </div>
+                  {% endif %}
+                  <div class="text-center">
+                    <button type="submit" class="btn btn-lg text-light font-weight-bold btn-lg w-100 mt-4 mb-0" style="background-color: #B95E04;">Sign Up</button>
+                  </div>
+                </form>
+              </div>
+                  <p class="mt-4 text-sm text-center">
+                    Already have an account?
+                    <a href="{% url 'login' %}" class="font-weight-bold" style="color: #B95E04;">Login</a>
+                  </p>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>    
+  <!--   Core JS Files   -->
+  <script src="{% static 'js/core/popper.min.js' %}"></script>
+  <script src="{% static 'js/core/bootstrap.min.js' %}"></script>
+  <script src="{% static 'js/plugins/perfect-scrollbar.min.js' %}"></script>
+  <script src="{% static 'js/plugins/smooth-scrollbar.min.js' %}"></script>
+  <script src="{% static 'js/plugins/chartjs.min.js' %}"></script>
+  <script>
+      var win = navigator.platform.indexOf('Win') > -1;
+      if (win && document.querySelector('#sidenav-scrollbar')) {
+      var options = {
+          damping: '0.5'
+      }
+      Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+      }
+  </script>
+  <!-- Github buttons -->
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+  <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="{% static 'js/material-dashboard.min.js' %}"></script>
+</body>
+
+</html>

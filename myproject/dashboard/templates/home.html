@@ -1,0 +1,248 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>
+    SmartLib Manager
+  </title>
+  <!--     Fonts and icons     -->
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+  <!-- Nucleo Icons -->
+  <link href="{% static 'css/nucleo-icons.css' %}" rel="stylesheet" />
+  <link href="{% static 'css/nucleo-svg.css' %}" rel="stylesheet" />
+  <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <!-- CSS Files -->
+  <link id="pagestyle" href="{% static 'css/material-dashboard.css' %}" rel="stylesheet" />
+  <style>
+    /* Customize the scrollbar */
+    ::-webkit-scrollbar {
+    width: 12px;
+    }
+    ::-webkit-scrollbar-track {
+    background: #c6c7c8;
+    }
+    ::-webkit-scrollbar-thumb {
+    background-color: #c6c7c8;
+    border-radius: 8px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+    background: #a2a2a2;
+    }
+  </style>
+</head>
+
+<body class="about-us bg-gray-200">
+    <!-- Navbar Transparent -->
+    <nav class="navbar navbar-expand-lg position-absolute top-0 z-index-3 w-100 shadow-none my-3  navbar-transparent ">
+      <div class="container">
+        <a class="navbar-brand m-0" href="{% url 'home' %}" target="_blank">
+            <h5 class="ms-2 font-weight-bold text-white">SmartLib Manager</h5>
+          </a>
+        <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon mt-2">
+            <span class="navbar-toggler-bar bar1"></span>
+            <span class="navbar-toggler-bar bar2"></span>
+            <span class="navbar-toggler-bar bar3"></span>
+          </span>
+        </button>
+        <div class="collapse navbar-collapse w-100 pt-3 pb-2 py-lg-0 ms-lg-12 ps-lg-5" id="navigation">
+          <ul class="navbar-nav navbar-nav-hover ms-auto">
+            {% if user.is_authenticated %}
+            <li class="nav-item ms-lg-auto">
+                <a class="nav-link nav-link-icon d-flex align-items-center" href="{% url 'dashboard_view' %}" target="_blank">
+                    <i class="material-icons opacity-10 me-1">dashboard</i>
+                    <p class="d-inline text-sm z-index-1 font-weight-bold mb-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Dashboard">Dashboard</p>
+                </a>
+            </li>            
+            <li class="nav-item ms-lg-auto">
+                <a class="nav-link nav-link-icon d-flex align-items-center" href="{% url 'logout' %}" target="_blank">
+                    <i class="material-icons opacity-10 me-1">logout</i>
+                    <p class="d-inline text-sm z-index-1 font-weight-bold mb-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Logout">Logout</p>
+                </a>
+            </li>  
+            {% else %}
+            <li class="nav-item ms-lg-auto">
+                <a class="nav-link nav-link-icon d-flex align-items-center" href="{% url 'login' %}" target="_blank">
+                    <i class="material-icons opacity-10 me-1">login</i>
+                    <p class="d-inline text-sm z-index-1 font-weight-bold mb-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Login">Login</p>
+                </a>
+            </li>  
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- End Navbar -->
+    <!-- -------- START HEADER 7 w/ text and video ------- -->
+    <header class="bg-gradient-dark">
+      <div class="page-header min-vh-75" style="background-image: url({% static 'img/illustrations/login.jpg' %});">
+        <span class="mask bg-gradient-dark opacity-6"></span>
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-lg-8 text-center mx-auto my-auto">
+              {% if user.is_authenticated %}
+              <h1 class="text-white">Welcome Back !</h1>
+              <p class="lead mb-4 text-white opacity-8">{{ user.first_name }} {{ user.last_name }}</p>
+              {% else %}
+              <h1 class="text-white">Welcome to SmartLib Manager</h1>
+              <p class="lead mb-4 text-white opacity-8">Transforming Public Libraries with Smart Solutions</p>
+              {% endif %}
+              {% if user.is_authenticated %}
+              <a class="btn bg-primary text-light font-weight-bold" href="{% url 'dashboard_view' %}">Go to dashboard</a>
+              {% else %}
+              <a class="btn bg-primary text-light font-weight-bold" href="{% url 'signup' %}">Create Account</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- -------- END HEADER 7 w/ text and video ------- -->
+    <div class="card card-body shadow-xl mx-3 mx-md-4 mt-n6" style="background-color: #B95E04;">
+      <!-- Section with four info areas -->
+      <section class="py-5 bg-light mx-n3" >
+        <div class="container" style="margin: auto;">
+          <div class="row">
+            <div class="col-md-8 text-start mb-5 mt-0">
+              <h3 class="text-dark z-index-1 position-relative">Features</h3>
+              <p class="text-dark opacity-8 mb-0">Why Choose SmartLib Manager?</p>
+            </div>
+          </div>
+          <div class="row align-items-center">
+            <div class="col-lg-10" style="margin: auto;">
+              <div class="row justify-content-start">
+                <div class="col-md-6">
+                  <div class="info">
+                    <i class="material-icons text-3xl mb-3" style="color: #B95E04;">web_asset</i>
+                    <h5>User-Friendly Interface</h5>
+                    <p>Our intuitive design makes it easy for librarians and users to navigate the platform</p>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="info">
+                    <i class="material-icons text-3xl mb-3" style="color: #B95E04;">search</i>
+                    <h5>Efficient Cataloging</h5>
+                    <p>Easily search and manage available books to save time</p>
+                  </div>
+                </div>
+              </div>
+              <div class="row justify-content-start mt-4">
+                <div class="col-md-6">
+                  <div class="info">
+                    <i class="material-icons text-3xl mb-3" style="color: #B95E04;">person</i>
+                    <h5>User Management</h5>
+                    <p>Simplify the registration process of new users and manage their transactions and visits effortlessly</p>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="info">
+                    <i class="material-icons text-3xl mb-3" style="color: #B95E04;">history</i>
+                    <h5>User Transaction and Visit History</h5>
+                    <p>Empower librarians with comprehensive information on user activity through detailed transaction and visit history records</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- END Section with four info areas -->
+      <!-- -------- START Features w/ pattern background & stats & rocket -------- -->
+    <section class="pb-5 position-relative mx-n3">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 text-start mb-5 mt-5">
+          <h3 class="text-white z-index-1 position-relative">Meet the Creator</h3>
+          <p class="text-white opacity-8 mb-0">Passion, dedication, and innovation are the driving forces behind SmartLib Manager.</p>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-lg-6 col-12">
+          <div class="card card-profile mt-4">
+            <div class="row">
+              <div class="col-lg-4 col-md-6 col-12 mt-n5">
+                <a href="javascript:;">
+                  <div class="p-3 pe-md-0">
+                    <img class="w-100 border-radius-md shadow-lg" src="{% static 'img/illustrations/DeveloperPicture.jpg' %}" alt="image">
+                  </div>
+                </a>
+              </div>
+              <div class="col-lg-8 col-md-6 col-12 my-auto">
+                <div class="card-body ps-lg-0">
+                  <h5 class="mb-0" style="color: #B95E04;">Mohamed Salah Arfa</h5>
+                  <h6 class="text-dark">Computer Science Student & Web Developer</h6>
+                  <p class="mb-0">Mohamed Salah Arfa is a dedicated Computer Science student with a passion for innovation. As the driving force behind SmartLib Manager, Mohamed Salah is committed to revolutionizing the way public libraries function. With a background in software engineering and web development, particularly with Django, Mohamed Salah is focused on creating inventive solutions that improve community access to knowledge and resources. Connect with Mohamed Salah on LinkedIn to discover more about their academic journey and the exciting future of SmartLib Manager.</p>
+                  <a href="https://www.linkedin.com/in/medsalaharfa1" class="btn bg-primary text-bold text-light mt-3 d-flex align-items-center justify-content-center" target="_blank">
+                    <i class="fab fa-linkedin text-lg text-light me-2"></i>Connect on LinkedIn
+                  </a>
+                  <a href="https://www.github.com/MedSalahArfa1" class="btn bg-primary text-bold text-light mt-3 d-flex align-items-center justify-content-center" target="_blank">
+                    <i class="fab fa-github text-lg text-light me-2"></i>GitHub Profile
+                  </a>                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- -------- END Features w/ pattern background & stats & rocket -------- -->  
+      
+      <!-- -------- END PRE-FOOTER 1 w/ SUBSCRIBE BUTTON AND IMAGE ------- -->
+    </div>
+
+    <footer class="footer pt-5 mt-5">
+      <div class="container">
+        <div class=" row">
+          <div class="col-12 ms-auto">
+            <div>
+            
+              <h6 class="font-weight-bolder mb-4 text-center">SmartLib Manager</h6>
+            </div>
+            
+          <div class="col-12">
+            <div class="text-center">
+              <p class="text-dark my-4 text-sm font-weight-normal">
+                All rights reserved. Copyright © <script>
+                  document.write(new Date().getFullYear())
+                </script> Material Kit by <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a>
+              </p>
+              <p class="text-dark my-4 text-sm font-weight-normal">Edited by Mohamed Salah Arfa</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+
+
+
+
+
+    <!--   Core JS Files   -->
+    <script src="{% static 'js/core/popper.min.js' %}"></script>
+    <script src="{% static 'js/core/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/plugins/perfect-scrollbar.min.js' %}"></script>
+    <script src="{% static 'js/plugins/smooth-scrollbar.min.js' %}"></script>
+    <script src="{% static 'js/plugins/chartjs.min.js' %}"></script>
+  
+    <script>
+        var win = navigator.platform.indexOf('Win') > -1;
+        if (win && document.querySelector('#sidenav-scrollbar')) {
+        var options = {
+            damping: '0.5'
+      }
+        Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+        }
+    </script>
+    <!-- Github buttons -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+    <script src="{% static 'js/material-dashboard.min.js' %}"></script>
+</body>

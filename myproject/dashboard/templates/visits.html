@@ -1,0 +1,183 @@
+<!--
+=========================================================
+* Material Dashboard 2 - v3.1.0
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/material-dashboard
+* Copyright 2023 Creative Tim (https://www.creative-tim.com)
+* Licensed under MIT (https://www.creative-tim.com/license)
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+-->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>
+    Visits
+  </title>
+  <!--     Fonts and icons     -->
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+  <!-- Nucleo Icons -->
+  <link href="{% static 'css/nucleo-icons.css' %}" rel="stylesheet" />
+  <link href="{% static 'css/nucleo-svg.css' %}" rel="stylesheet" />
+  <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <!-- CSS Files -->
+  <link id="pagestyle" href="{% static 'css/material-dashboard.css' %}" rel="stylesheet" />
+  <style>
+    .table-bordered th, .table-bordered td {
+        border: 1px solid #dee2e6 !important;
+    }
+  </style>
+</head>
+<body class="g-sidenav-show  bg-gray-200">
+  {% include 'aside.html' %}
+  <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
+    <!-- Navbar -->
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
+      <div class="container-fluid py-1 px-3">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Visits</li>
+          </ol>
+          <h6 class="font-weight-bolder mb-0">{{ logged_in_user.first_name }} {{ logged_in_user.last_name }} - {{ logged_in_user.library.name }}</h6>
+        </nav>
+        <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+          <ul class="navbar-nav justify-content-end">
+            <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+              <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
+                <div class="sidenav-toggler-inner">
+                  <i class="sidenav-toggler-line"></i>
+                  <i class="sidenav-toggler-line"></i>
+                  <i class="sidenav-toggler-line"></i>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- End Navbar -->
+    <div class="container-fluid py-4"  style="max-width:80%;">
+      <div class="card my-4">
+        <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+          <div class="shadow-dark border-radius-lg pt-4 pb-3 text-center" style="background-color: #B95E04;">
+            <h3 class="text-white text-capitalize ps-3">VISITS HISTORY</h3>
+          </div>
+        </div>
+        <div class="card-body px-0 pb-2">
+          {% if visits %}
+          <div class="d-flex align-items-center justify-content-between text-light">
+            <a class="btn mt-4 w-15 d-flex align-items-center text-light justify-content-center" href="{% url 'add_visit' %}" type="button" style="background-color: #B95E04;margin-left: 20px;">
+              <i class="material-icons opacity-10 me-2">add</i>
+              <span class="text-bolder">Add visit</span>
+            </a>
+            <div class="mt-2 w-15 d-flex align-items-center" style="margin-right: 20px;">
+              <form method="GET" action="{% url 'visits_view' %}" class="input-group input-group-outline">
+                <input type="text" class="form-control" name="q" placeholder="Search visits..." value="{{ request.GET.q }}">
+              </form>
+            </div>
+          </div>
+          <div class="table-responsive p-0">
+            <table class="table align-items-center mb-0 table-bordered" style="max-width: 95%;margin: auto;">
+              <thead>
+                <tr>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">User</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">Visit Date</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">Visit Time</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">Books</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for visit in visits|slice:'::-1' %}
+                <tr>
+                  <td>
+                    <div class="d-flex px-2 py-1">
+                      <div class="d-flex flex-column justify-content-center">
+                        <h6 class="mb-0 text-sm">{{ visit.user.first_name }} {{ visit.user.last_name }}</h6>
+                        <p class="text-xs text-secondary mb-0">{{ visit.user.membership_id }}</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="d-flex px-2 py-1">
+                      <div class="d-flex flex-column justify-content-center">
+                        <p class="mb-0 text-sm" style="font-weight: bold;">{{ visit.visit_date }}</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="d-flex px-2 py-1">
+                      <div class="d-flex flex-column justify-content-center">
+                        <p class="mb-0 text-sm">{{ visit.visit_time }}</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td {% if visit.book.count == 0 %}style="background-color: #f0f2f5;"{% endif %}>
+                    <div class="d-flex px-2 py-1">
+                      {% if visit.book.count > 0 %}
+                        <div class="d-flex flex-column justify-content-center">
+                            <p class="text-sm mb-0">
+                            {% for book in visit.book.all %}
+                            {{ book.local_id }} - {{ book.title }} <br>
+                            {% endfor %}
+                            </p>
+                        </div>
+                      {% endif %}
+                    </div>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          {% else %}
+          <!-- 404 Start -->
+          <div class="container-xxl py-5" data-wow-delay="0.1s">
+              <div class="container text-center">
+                  <div class="row justify-content-center">
+                      <div class="col-lg-6">
+                          <i class="bi bi-exclamation-triangle display-1 text-dark"></i>
+                          <h1 class="mb-4" style="color: #B95E04;">No visits available</h1>
+                          <a href="{% url 'add_visit' %}" class="btn btn-lg w-50 mt-4 mb-0 text-white" style="background-color: #B95E04;">add new visit</a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <!-- 404 End -->
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </main>
+    <!--   Core JS Files   -->
+    <script src="{% static 'js/core/popper.min.js' %}"></script>
+    <script src="{% static 'js/core/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/plugins/perfect-scrollbar.min.js' %}"></script>
+    <script src="{% static 'js/plugins/smooth-scrollbar.min.js' %}"></script>
+    <script src="{% static 'js/plugins/chartjs.min.js' %}"></script>
+    <script>
+        var win = navigator.platform.indexOf('Win') > -1;
+        if (win && document.querySelector('#sidenav-scrollbar')) {
+        var options = {
+            damping: '0.5'
+        }
+        Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+        }
+    </script>
+    <!-- Github buttons -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+    <script src="{% static 'js/material-dashboard.min.js' %}"></script>
+</body>
+
+</html>
